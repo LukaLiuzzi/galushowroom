@@ -1,9 +1,24 @@
-import React from 'react'
+import React from 'react';
+import ItemCount from './ItemCount';
 
-const ItemListContainer = ({greeting}) => {
-  return (
-    <h1 className='text-orange-400 text-center text-5xl font-bold'>Hola <span className='text-red-500'>{greeting}</span>, como estas?</h1>
-  )
-}
+const ItemListContainer = ({
+	counter,
+	addItem,
+	removeItem,
+	addToCart,
+	removeFromCart,
+}) => {
+	return (
+		<>
+			<ItemCount
+				counter={counter}
+				addItem={addItem}
+				removeItem={removeItem}
+				addToCart={addToCart}
+				removeFromCart={removeFromCart}
+			/>
+		</>
+	);
+};
 
-export default ItemListContainer
+export default ItemListContainer;
