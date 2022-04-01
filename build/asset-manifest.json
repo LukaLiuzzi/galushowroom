@@ -1,15 +1,13 @@
 {
   "files": {
-    "main.css": "/galushowroom/static/css/main.9a807c84.css",
-    "main.js": "/galushowroom/static/js/main.e74f79cf.js",
-    "static/js/787.80f471d3.chunk.js": "/galushowroom/static/js/787.80f471d3.chunk.js",
+    "main.css": "/galushowroom/static/css/main.a47fb55d.css",
+    "main.js": "/galushowroom/static/js/main.92d28135.js",
     "index.html": "/galushowroom/index.html",
-    "main.9a807c84.css.map": "/galushowroom/static/css/main.9a807c84.css.map",
-    "main.e74f79cf.js.map": "/galushowroom/static/js/main.e74f79cf.js.map",
-    "787.80f471d3.chunk.js.map": "/galushowroom/static/js/787.80f471d3.chunk.js.map"
+    "main.a47fb55d.css.map": "/galushowroom/static/css/main.a47fb55d.css.map",
+    "main.92d28135.js.map": "/galushowroom/static/js/main.92d28135.js.map"
   },
   "entrypoints": [
-    "static/css/main.9a807c84.css",
-    "static/js/main.e74f79cf.js"
+    "static/css/main.a47fb55d.css",
+    "static/js/main.92d28135.js"
   ]
 }
