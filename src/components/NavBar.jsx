@@ -1,7 +1,7 @@
 import React from 'react';
 import CartWidget from './CartWidget';
 
-function NavBar({ cart }) {
+function NavBar() {
 	return (
 		<header>
 			<nav className='flex justify-between items-center w-11/12 mx-auto'>
@@ -158,7 +158,7 @@ function NavBar({ cart }) {
 				</ul>
 
 				<div>
-					<CartWidget cart={cart} />
+					<CartWidget />
 				</div>
 			</nav>
 		</header>

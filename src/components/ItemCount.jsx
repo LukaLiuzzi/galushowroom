@@ -1,12 +1,6 @@
 import React from 'react';
 
-const ItemCount = ({
-	counter,
-	addItem,
-	removeItem,
-	addToCart,
-	removeFromCart,
-}) => {
+const ItemCount = ({ counter, addItem, removeItem, addToCart, stock }) => {
 	return (
 		<div className='d-flex justify-center items-center flex-col'>
 			<div>
@@ -23,11 +17,7 @@ const ItemCount = ({
 					Agregar al carrito
 				</button>
 			</div>
-			<div className='mt-2'>
-				<button className='btn btn-outline-warning' onClick={removeFromCart}>
-					Eliminar del carrito
-				</button>
-			</div>
+			<span className='badge fs-4'>Stock: {stock}</span>
 		</div>
 	);
 };
