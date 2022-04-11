@@ -1,22 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import ItemDetail from './ItemDetail';
+import json from '../products.json';
 
 export default function ItemDetailContainer() {
 	const [product, setProduct] = useState({});
 	const [isLoading, setIsLoading] = useState(true);
 
+	const getProduct = (id) => {
+		return json.find((el) => el.id === id);
+	};
+
 	useEffect(() => {
-		fetch('https://api.mercadolibre.com/products/MLA16599626#json')
-			.then((response) => response.json())
-			.then((data) => {
-				setProduct(data);
-				setIsLoading(false);
-			})
-			.catch((error) => console.log(error));
-	}, []);
+		new Promise((resolve) => {
+			setTimeout(() => {
+				resolve(getProduct(1));
+			}, 2000);
+		}).then((data) => {
+			setProduct(data);
+			setIsLoading(false);
+		});
+	}, [product]);
 
 	return isLoading ? (
-		<h1 className='text-white fs-1 d-flex justify-center mt-5'>Cargando...</h1>
+		<h1 className='text-white text-center font-bold fs-1 mt-5'>Cargando...</h1>
 	) : (
 		<ItemDetail product={product} />
 	);

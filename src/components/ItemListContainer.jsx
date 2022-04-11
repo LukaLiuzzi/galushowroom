@@ -1,44 +1,36 @@
-import React, { useState } from 'react';
-import ItemCount from './ItemCount';
+import json from '../products.json';
+import ItemList from './ItemList';
+import { useState, useEffect } from 'react';
 
-const ItemListContainer = ({ stock, setStock }) => {
-	const [cart, setCart] = useState(0);
-	const [counter, setCounter] = useState(1);
+const ItemListContainer = () => {
+	const [products, setProducts] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
 
-	const addItem = () => {
-		if (counter < stock) {
-			setCounter(counter + 1);
-		}
-	};
+	useEffect(() => {
+		new Promise((resolve) => {
+			setTimeout(() => {
+				resolve(json);
+			}, 2000);
+		}).then((data) => {
+			setProducts(data);
+			setIsLoading(false);
+		});
+	}, []);
 
-	const removeItem = () => {
-		if (counter > 1) {
-			setCounter(counter - 1);
-		}
-	};
-
-	const addToCart = () => {
-		if (counter <= stock) {
-			setStock(stock - counter);
-			setCart(cart + counter);
-			setCounter(1);
-		} else {
-			alert(
-				'No tenemos tanto stock, nuestro stock es de ' + stock + ' unidades'
-			);
-		}
-	};
+	if (isLoading) {
+		return (
+			<h1 className='text-white text-center font-bold fs-1 mt-5'>
+				Cargando...
+			</h1>
+		);
+	}
 
 	return (
-		<>
-			<ItemCount
-				counter={counter}
-				addItem={addItem}
-				removeItem={removeItem}
-				addToCart={addToCart}
-				stock={stock}
-			/>
-		</>
+		<div className='container mx-auto grid grid-cols-4 gap-4 mt-6'>
+			{products.map((el) => {
+				return <ItemList key={el.id} el={el} />;
+			})}
+		</div>
 	);
 };
 

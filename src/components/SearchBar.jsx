@@ -2,11 +2,10 @@ import React from 'react';
 
 export default function SearchBar() {
 	return (
-		<div className='flex justify-center'>
-			<div className='mb-3 xl:w-96'>
-				<input
-					type='search'
-					className='
+		<div className='mb-3 xl:w-96'>
+			<input
+				type='search'
+				className='
         form-control
         block
         w-full
@@ -23,10 +22,9 @@ export default function SearchBar() {
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
       '
-					id='exampleSearch'
-					placeholder='Buscar producto'
-				/>
-			</div>
+				id='exampleSearch'
+				placeholder='Buscar producto'
+			/>
 		</div>
 	);
 }
