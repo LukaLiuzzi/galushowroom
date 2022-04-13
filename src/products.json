@@ -5,7 +5,7 @@
         "price": 100,
         "image": "https://cdn.elburgues.com/media/catalog/product/b/u/buzo_spice_crudo.jpg",
         "description": "Buzo de vestir con mangas largas",
-        "category": "Buzos",
+        "category": "buzos",
         "stock": 10
     },
     {
@@ -14,7 +14,7 @@
         "price": 50,
         "image": "https://www.vovjeans.com.ar/media/catalog/product/cache/1/thumbnail/371x557/040ec09b1e35df139433887a97daa66f/t/m/tm11503-5.jpg",
         "description": "Remera suelta con mangas cortas",
-        "category": "Remeras",
+        "category": "remeras",
         "stock": 10
     }, 
     {
@@ -23,7 +23,7 @@
         "price": 150,
         "image": "https://d2r9epyceweg5n.cloudfront.net/stores/308/029/products/20210803_160245-removebg-preview1-4ea0e8a641efb2cc1416300997287580-480-0.png",
         "description": "Remera de vestir color marron",
-        "category": "Remeras",
+        "category": "remeras",
         "stock": 10
     }, 
     {
@@ -32,7 +32,7 @@
         "price": 200,
         "image": "https://www.distritomoda.com.ar/sites/default/files/styles/producto_interior/public/imagenes/_mg_4942.jpg?itok=Gw247HZz",
         "description": "Pantalon apretado estilo chupin",
-        "category": "Pantalones",
+        "category": "pantalones",
         "stock": 10
     }
 ]

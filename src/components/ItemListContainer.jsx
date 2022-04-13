@@ -1,21 +1,38 @@
 import json from '../products.json';
-import ItemList from './ItemList';
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import Filters from './Filters';
+import ItemList from './ItemList';
 
 const ItemListContainer = () => {
-	const [products, setProducts] = useState([]);
+	const [categoryValue, setCategoryValue] = useState('');
+
+	const [products, setProducts] = useState(json);
 	const [isLoading, setIsLoading] = useState(true);
 
+	const { category } = useParams();
+
+	function categoriesFilter() {
+		return json.filter(
+			(product) => product.category === (category ? category : categoryValue)
+		);
+	}
+
 	useEffect(() => {
+		setIsLoading(true);
 		new Promise((resolve) => {
 			setTimeout(() => {
-				resolve(json);
+				if (category || categoryValue) {
+					resolve(categoriesFilter());
+				} else {
+					resolve(json);
+				}
 			}, 2000);
 		}).then((data) => {
 			setProducts(data);
 			setIsLoading(false);
 		});
-	}, []);
+	}, [category, categoryValue]);
 
 	if (isLoading) {
 		return (
@@ -26,11 +43,13 @@ const ItemListContainer = () => {
 	}
 
 	return (
-		<div className='container mx-auto grid grid-cols-4 gap-4 mt-6'>
-			{products.map((el) => {
-				return <ItemList key={el.id} el={el} />;
-			})}
-		</div>
+		<>
+			<Filters
+				categoryValue={categoryValue}
+				setCategoryValue={setCategoryValue}
+			/>
+			<ItemList products={products} />
+		</>
 	);
 };
 

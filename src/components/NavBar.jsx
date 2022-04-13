@@ -1,34 +1,51 @@
 import React from 'react';
 import CartWidget from './CartWidget';
+import { Link, NavLink } from 'react-router-dom';
 
 function NavBar() {
 	return (
 		<header>
 			<nav className='flex justify-between items-center w-11/12 mx-auto h-20'>
 				<div className='text-white'>
-					<h1 className='text-3xl text-white font-bold'>Galu Showroom</h1>
+					<Link to='/'>
+						<h1 className='text-3xl text-white font-bold uppercase'>
+							Galu Showroom
+						</h1>
+					</Link>
 				</div>
 
 				<ul className='absolute left-1/2 -translate-x-1/2 flex gap-8'>
 					<li>
-						<a href='#!' className='text-white text-xl uppercase'>
+						<NavLink to='/' className='text-white text-xl uppercase'>
 							Inicio
-						</a>
+						</NavLink>
 					</li>
+
 					<li>
-						<a href='#!' className='text-white text-xl uppercase'>
-							Productos
-						</a>
+						<NavLink
+							to='/category/remeras'
+							className='text-white text-xl uppercase'
+						>
+							Remeras
+						</NavLink>
 					</li>
+
 					<li>
-						<a href='#!' className='text-white text-xl uppercase'>
-							Nosotros
-						</a>
+						<NavLink
+							to='/category/pantalones'
+							className='text-white text-xl uppercase'
+						>
+							Pantalones
+						</NavLink>
 					</li>
+
 					<li>
-						<a href='#!' className='text-white text-xl uppercase'>
-							Contacto
-						</a>
+						<NavLink
+							to='/category/buzos'
+							className='text-white text-xl uppercase'
+						>
+							Buzos
+						</NavLink>
 					</li>
 				</ul>
 
