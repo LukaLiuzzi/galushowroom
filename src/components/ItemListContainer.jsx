@@ -1,7 +1,6 @@
 import json from '../products.json';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Filters from './Filters';
 import ItemList from './ItemList';
 
 const ItemListContainer = () => {
@@ -44,10 +43,6 @@ const ItemListContainer = () => {
 
 	return (
 		<>
-			<Filters
-				categoryValue={categoryValue}
-				setCategoryValue={setCategoryValue}
-			/>
 			<ItemList products={products} />
 		</>
 	);

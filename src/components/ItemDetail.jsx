@@ -1,4 +1,5 @@
 import React from 'react';
+import ItemCount from './ItemCount';
 
 export default function ItemDetail({ product }) {
 	const { name, price, image, stock, description } = product;
@@ -16,6 +17,8 @@ export default function ItemDetail({ product }) {
 							<p className='text-gray-800'>{description}</p>
 							<p className='text-gray-800'>Stock: {stock}</p>
 						</div>
+
+						<ItemCount />
 					</div>
 				</div>
 			</div>

@@ -13,7 +13,6 @@ export default function ItemDetailContainer() {
 		return json.find((el) => el.id === parseInt(productId));
 	};
 
-	// if product not found, redirect to 404
 	const productFound = () => {
 		return json.some((el) => el.id === parseInt(productId));
 	};

@@ -1,24 +1,23 @@
 import React from 'react';
 
-const ItemCount = ({ counter, addItem, removeItem, addToCart, stock }) => {
+const ItemCount = () => {
 	return (
-		<div className='d-flex justify-center items-center flex-col'>
-			<div>
-				<button className='btn btn-danger' onClick={removeItem}>
-					-
-				</button>
-				<span className='badge fs-4'>{counter}</span>
-				<button className='btn btn-success' onClick={addItem}>
-					+
-				</button>
+		<>
+			<div className='flex justify-center items-center mt-4'>
+				<div className='flex items-center'>
+					<button className='bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded'>
+						-
+					</button>
+					<span className='px-2'>1</span>
+					<button className='bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded'>
+						+
+					</button>
+				</div>
 			</div>
-			<div className='mt-2'>
-				<button className='btn btn-outline-info' onClick={addToCart}>
-					Agregar al carrito
-				</button>
-			</div>
-			<span className='badge fs-4'>Stock: {stock}</span>
-		</div>
+			<button className='bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded block mx-auto mt-4'>
+				Agregar al carrito
+			</button>
+		</>
 	);
 };
 
