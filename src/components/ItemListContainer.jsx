@@ -1,28 +1,23 @@
 import json from '../products.json';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Filters from './Filters';
 import ItemList from './ItemList';
 
 const ItemListContainer = () => {
-	const [categoryValue, setCategoryValue] = useState('');
-
 	const [products, setProducts] = useState(json);
 	const [isLoading, setIsLoading] = useState(true);
 
 	const { category } = useParams();
 
 	function categoriesFilter() {
-		return json.filter(
-			(product) => product.category === (category ? category : categoryValue)
-		);
+		return json.filter((product) => product.category === category);
 	}
 
 	useEffect(() => {
 		setIsLoading(true);
 		new Promise((resolve) => {
 			setTimeout(() => {
-				if (category || categoryValue) {
+				if (category) {
 					resolve(categoriesFilter());
 				} else {
 					resolve(json);
@@ -32,7 +27,7 @@ const ItemListContainer = () => {
 			setProducts(data);
 			setIsLoading(false);
 		});
-	}, [category, categoryValue]);
+	}, [category]);
 
 	if (isLoading) {
 		return (
@@ -44,10 +39,6 @@ const ItemListContainer = () => {
 
 	return (
 		<>
-			<Filters
-				categoryValue={categoryValue}
-				setCategoryValue={setCategoryValue}
-			/>
 			<ItemList products={products} />
 		</>
 	);
