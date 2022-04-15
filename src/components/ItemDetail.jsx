@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import ItemCount from './ItemCount';
 
 export default function ItemDetail({ product }) {
 	const { name, price, image, stock, description } = product;
 
-	const [onCart, setOnCart] = useState(false);
 	const [count, setCount] = useState(1);
+	const [totalItems, setTotalItems] = useState(0);
 
 	function onAdd(quantity) {
-		setOnCart(true);
+		setTotalItems(quantity);
 	}
 
 	function handleAddCount() {
@@ -42,14 +43,19 @@ export default function ItemDetail({ product }) {
 							<p className='text-gray-800'>Stock: {stock}</p>
 						</div>
 
-						<ItemCount
-							stock={stock}
-							count={count}
-							handleAddCount={handleAddCount}
-							handleRemoveCount={handleRemoveCount}
-							onAdd={onAdd}
-							onCart={onCart}
-						/>
+						{totalItems === 0 ? (
+							<ItemCount
+								stock={stock}
+								count={count}
+								handleAddCount={handleAddCount}
+								handleRemoveCount={handleRemoveCount}
+								onAdd={onAdd}
+							/>
+						) : (
+							<Link to='/cart'>
+								<button className='text-3xl'>Ir al carrito</button>
+							</Link>
+						)}
 					</div>
 				</div>
 			</div>
