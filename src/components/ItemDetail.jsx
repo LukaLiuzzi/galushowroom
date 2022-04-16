@@ -5,16 +5,16 @@ import ItemCount from './ItemCount';
 export default function ItemDetail({ product }) {
 	const { name, price, image, stock, description } = product;
 
-	const [count, setCount] = useState(1);
+	const [quantity, setQuantity] = useState(1);
 	const [totalItems, setTotalItems] = useState(0);
 
 	function onAdd(quantity) {
 		setTotalItems(quantity);
 	}
 
-	function handleAddCount() {
-		if (count < stock) {
-			setCount(count + 1);
+	function handleAddQuantity() {
+		if (quantity < stock) {
+			setQuantity(quantity + 1);
 		} else {
 			alert(
 				'No hay stock suficiente, podes agregar hasta ' + stock + ' unidades'
@@ -22,9 +22,9 @@ export default function ItemDetail({ product }) {
 		}
 	}
 
-	function handleRemoveCount() {
-		if (count > 1) {
-			setCount(count - 1);
+	function handleRemoveQuantity() {
+		if (quantity > 1) {
+			setQuantity(quantity - 1);
 		}
 	}
 
@@ -45,11 +45,11 @@ export default function ItemDetail({ product }) {
 
 						{totalItems === 0 ? (
 							<ItemCount
-								stock={stock}
-								count={count}
-								handleAddCount={handleAddCount}
-								handleRemoveCount={handleRemoveCount}
+								quantity={quantity}
+								handleAddQuantity={handleAddQuantity}
+								handleRemoveQuantity={handleRemoveQuantity}
 								onAdd={onAdd}
+								product={product}
 							/>
 						) : (
 							<Link to='/cart'>

@@ -4,18 +4,21 @@ import ItemListContainer from './components/ItemListContainer';
 import ItemDetailContainer from './components/ItemDetailContainer';
 import NotFoundPage from './components/NotFoundPage';
 import Cart from './components/Cart';
+import CartContexProvider from './context/CartContexProvider';
 
 function App() {
 	return (
 		<BrowserRouter>
-			<NavBar />
-			<Routes>
-				<Route path='/' element={<ItemListContainer />} />
-				<Route path='/category/:category' element={<ItemListContainer />} />
-				<Route path='/item/:productId' element={<ItemDetailContainer />} />
-				<Route path='/cart' element={<Cart />} />
-				<Route path='*' element={<NotFoundPage />} />
-			</Routes>
+			<CartContexProvider>
+				<NavBar />
+				<Routes>
+					<Route path='/' element={<ItemListContainer />} />
+					<Route path='/category/:category' element={<ItemListContainer />} />
+					<Route path='/item/:productId' element={<ItemDetailContainer />} />
+					<Route path='/cart' element={<Cart />} />
+					<Route path='*' element={<NotFoundPage />} />
+				</Routes>
+			</CartContexProvider>
 		</BrowserRouter>
 	);
 }

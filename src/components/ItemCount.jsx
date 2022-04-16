@@ -1,25 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { CartContext } from '../context/CartContexProvider';
 
 const ItemCount = ({
-	stock,
-	count,
-	handleAddCount,
-	handleRemoveCount,
+	quantity,
+	handleAddQuantity,
+	handleRemoveQuantity,
 	onAdd,
+	product,
 }) => {
+	const { addItemToCart } = useContext(CartContext);
+
 	return (
 		<>
 			<div className='flex justify-center items-center mt-4'>
 				<div className='flex items-center'>
 					<button
-						onClick={() => handleRemoveCount()}
+						onClick={() => handleRemoveQuantity()}
 						className='bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded'
 					>
 						-
 					</button>
-					<span className='px-2'>{count}</span>
+					<span className='px-2'>{quantity}</span>
 					<button
-						onClick={() => handleAddCount()}
+						onClick={() => handleAddQuantity()}
 						className='bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded'
 					>
 						+
@@ -27,7 +30,10 @@ const ItemCount = ({
 				</div>
 			</div>
 			<button
-				onClick={() => onAdd(count)}
+				onClick={() => {
+					onAdd(quantity);
+					addItemToCart({ ...product, quantity });
+				}}
 				className='bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded block mx-auto mt-4'
 			>
 				Agregar al carrito
