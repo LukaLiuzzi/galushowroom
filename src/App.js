@@ -4,12 +4,12 @@ import ItemListContainer from './components/ItemListContainer';
 import ItemDetailContainer from './components/ItemDetailContainer';
 import NotFoundPage from './components/NotFoundPage';
 import Cart from './components/Cart';
-import CartContexProvider from './context/CartContexProvider';
+import CartContextProvider from './context/CartContextProvider';
 
 function App() {
 	return (
 		<BrowserRouter>
-			<CartContexProvider>
+			<CartContextProvider>
 				<NavBar />
 				<Routes>
 					<Route path='/' element={<ItemListContainer />} />
@@ -18,7 +18,7 @@ function App() {
 					<Route path='/cart' element={<Cart />} />
 					<Route path='*' element={<NotFoundPage />} />
 				</Routes>
-			</CartContexProvider>
+			</CartContextProvider>
 		</BrowserRouter>
 	);
 }
