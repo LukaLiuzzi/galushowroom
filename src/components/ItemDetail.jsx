@@ -53,7 +53,9 @@ export default function ItemDetail({ product }) {
 							/>
 						) : (
 							<Link to='/cart'>
-								<button className='text-3xl'>Ir al carrito</button>
+								<button className='bg-orange-400 rounded text-black px-2 font-bold text-xl uppercase mt-2 hover:bg-orange-600 transition-colors'>
+									Terminar mi compra
+								</button>
 							</Link>
 						)}
 					</div>
