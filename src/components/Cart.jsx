@@ -40,7 +40,7 @@ export default function Cart() {
 										<tr key={item.id}>
 											<td className='hidden pb-4 md:table-cell'>
 												<img
-													src={item.image}
+													src={item.img}
 													className='w-40 rounded'
 													alt='Thumbnail'
 												/>

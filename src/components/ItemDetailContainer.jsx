@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ItemDetail from './ItemDetail';
-import json from '../products.json';
 import { useParams } from 'react-router-dom';
+import { doc, getDoc, getFirestore } from 'firebase/firestore';
 
 export default function ItemDetailContainer() {
 	const [product, setProduct] = useState({});
@@ -9,36 +9,15 @@ export default function ItemDetailContainer() {
 
 	const { productId } = useParams();
 
-	const getProduct = () => {
-		return json.find((el) => el.id === parseInt(productId));
-	};
-
-	const productFound = () => {
-		return json.some((el) => el.id === parseInt(productId));
-	};
-
 	useEffect(() => {
-		if (productFound()) {
-			new Promise((resolve) => {
-				setIsLoading(true);
-				setTimeout(() => {
-					resolve(getProduct(productId));
-				}, 2000);
-			})
-				.then((data) => {
-					setProduct(data);
-				})
-				.catch((err) => {
-					console.log('Ocurrio un error' + err);
-					setProduct({});
-				})
-				.finally(() => {
-					setIsLoading(false);
-				});
-		} else {
-			setProduct(undefined);
+		setIsLoading(true);
+		const db = getFirestore();
+
+		const product = doc(db, 'products', productId);
+		getDoc(product).then((res) => {
+			setProduct({ id: res.id, ...res.data() });
 			setIsLoading(false);
-		}
+		});
 	}, [productId]);
 
 	if (isLoading) {

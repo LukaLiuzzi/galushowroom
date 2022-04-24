@@ -41,10 +41,10 @@ function NavBar() {
 
 					<li>
 						<NavLink
-							to='/category/buzos'
+							to='/category/abrigos'
 							className='text-white text-xl uppercase'
 						>
-							Buzos
+							Abrigos
 						</NavLink>
 					</li>
 				</ul>

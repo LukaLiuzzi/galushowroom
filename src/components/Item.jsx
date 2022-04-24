@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { TealToLime } from './Buttons';
 
 export default function Item({ el }) {
-	const { name, price, image } = el;
+	const { name, price, img } = el;
 	const productId = el.id;
 	return (
 		<div className='col-span-1'>
 			<div className=''>
-				<img src={image} alt={name} className='w-full h-96 object-cover' />
+				<img src={img} alt={name} className='w-full h-96 object-cover' />
 			</div>
 			<div className='bg-amber-400 shadow-md overflow-hidden'>
 				<div className='px-6 py-4'>

@@ -1,37 +1,38 @@
-import json from '../products.json';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ItemList from './ItemList';
+import {
+	collection,
+	getDocs,
+	getFirestore,
+	query,
+	where,
+} from 'firebase/firestore';
 
 const ItemListContainer = () => {
-	const [categoryValue, setCategoryValue] = useState('');
-
-	const [products, setProducts] = useState(json);
+	const [products, setProducts] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 
 	const { category } = useParams();
 
-	function categoriesFilter() {
-		return json.filter(
-			(product) => product.category === (category ? category : categoryValue)
-		);
-	}
-
 	useEffect(() => {
 		setIsLoading(true);
-		new Promise((resolve) => {
-			setTimeout(() => {
-				if (category || categoryValue) {
-					resolve(categoriesFilter());
-				} else {
-					resolve(json);
-				}
-			}, 2000);
-		}).then((data) => {
-			setProducts(data);
-			setIsLoading(false);
-		});
-	}, [category, categoryValue]);
+		const db = getFirestore();
+
+		const productsCollection = collection(db, 'products');
+		if (category) {
+			const q = query(productsCollection, where('category', '==', category));
+			getDocs(q).then((res) => {
+				setProducts(res.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+				setIsLoading(false);
+			});
+		} else {
+			getDocs(productsCollection).then((res) => {
+				setProducts(res.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+				setIsLoading(false);
+			});
+		}
+	}, [category]);
 
 	if (isLoading) {
 		return (
