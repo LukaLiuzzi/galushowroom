@@ -5,6 +5,7 @@ import ItemDetailContainer from './components/ItemDetailContainer';
 import NotFoundPage from './components/NotFoundPage';
 import Cart from './components/Cart';
 import CartContextProvider from './context/CartContextProvider';
+import CheckOut from './components/CheckOut';
 
 function App() {
 	return (
@@ -16,6 +17,7 @@ function App() {
 					<Route path='/category/:category' element={<ItemListContainer />} />
 					<Route path='/item/:productId' element={<ItemDetailContainer />} />
 					<Route path='/cart' element={<Cart />} />
+					<Route path='/checkout' element={<CheckOut />} />
 					<Route path='*' element={<NotFoundPage />} />
 				</Routes>
 			</CartContextProvider>

@@ -31,7 +31,10 @@ export default function CartContextProvider({ children }) {
 	};
 
 	const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-	const totalItemsInCart = cart.reduce((acc, item) => acc + item.quantity, 0);
+	const totalItemsInCart = cart.reduce(
+		(acc, item) => Number(acc) + Number(item.quantity),
+		0
+	);
 
 	const totalPerItem = (price, quantity) => {
 		return price * quantity;
