@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ItemDetail from './ItemDetail';
 import { useParams } from 'react-router-dom';
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import Loading from './Loading';
 
 export default function ItemDetailContainer() {
 	const [product, setProduct] = useState({});
@@ -21,11 +22,7 @@ export default function ItemDetailContainer() {
 	}, [productId]);
 
 	if (isLoading) {
-		return (
-			<h1 className='text-white text-center font-bold fs-1 mt-5'>
-				Cargando...
-			</h1>
-		);
+		return <Loading />;
 	}
 
 	return (

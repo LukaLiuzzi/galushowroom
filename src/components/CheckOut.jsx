@@ -7,9 +7,10 @@ import {
 	getFirestore,
 	serverTimestamp,
 } from 'firebase/firestore';
+import OrderSummary from './OrderSummary';
 
 export default function CheckOut() {
-	const { cart, total, clearCart } = useContext(CartContext);
+	const { cart, total, totalItemsInCart, clearCart } = useContext(CartContext);
 
 	const [orderId, setOrderId] = useState(undefined);
 	const [isLoading, setIsLoading] = useState(false);
@@ -58,57 +59,67 @@ export default function CheckOut() {
 	return (
 		<>
 			{orderId ? (
-				<>
-					<h1>Gracias por su compra, el id de su orden es:</h1>
-					<p>{orderId}</p>
-				</>
+				<div className='min-height-100'>
+					<h1 className='uppercase px-2 font-bold text-center'>
+						Gracias por su compra, el id de su orden es:{' '}
+						<span className='text-red-400 normal-case'>{orderId}</span>
+					</h1>
+				</div>
 			) : (
-				<form onSubmit={handleSubmit((data) => sendOrder(data))}>
-					<div>
-						<input
-							{...register('name', {
-								required: true,
-								minLength: 3,
-								maxLength: 50,
-								pattern: /^[a-z ,.'-]+$/i,
-							})}
-							type='text'
-							placeholder='Luka Liuzzi'
-						/>
-						{errors.name?.type === 'required' && 'El nombre no es valido'}
-						{errors.name?.type === 'minLength' &&
-							'El nombre no puede ser menor a 3 caracteres'}
-						{errors.name?.type === 'maxLength' &&
-							'El nombre no puede ser mayor a 50 caracteres'}
-						{errors.name?.type === 'pattern' &&
-							'El nombre solo puede contener letras'}
-					</div>
-					<div>
-						<input
-							{...register('email', {
-								required: true,
-								pattern: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
-							})}
-							placeholder='ejemplo@gmail.com'
-							type='text'
-						/>
-						{errors.email && 'El email no es valido'}
-					</div>
-					<div>
-						<input
-							{...register('phone', {
-								required: true,
-								pattern:
-									/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
-							})}
-							placeholder='+541112223334'
-							type='text'
-						/>
-						{errors.phone && 'El numero de telefono no es valido'}
-					</div>
+				<div className='min-height-100 container mx-auto'>
+					<OrderSummary total={total} totalItemsInCart={totalItemsInCart} />
+					<form onSubmit={handleSubmit((data) => sendOrder(data))}>
+						<div className='px-2 my-2'>
+							<input
+								{...register('name', {
+									required: true,
+									minLength: 3,
+									maxLength: 50,
+									pattern: /^[a-z ,.'-]+$/i,
+								})}
+								type='text'
+								placeholder='Luka Liuzzi'
+								className='border border-secondary rounded w-full px-2 py-2'
+							/>
+							{errors.name?.type === 'required' && 'El nombre no es valido'}
+							{errors.name?.type === 'minLength' &&
+								'El nombre no puede ser menor a 3 caracteres'}
+							{errors.name?.type === 'maxLength' &&
+								'El nombre no puede ser mayor a 50 caracteres'}
+							{errors.name?.type === 'pattern' &&
+								'El nombre solo puede contener letras'}
+						</div>
+						<div className='px-2 my-2'>
+							<input
+								{...register('email', {
+									required: true,
+									pattern: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
+								})}
+								placeholder='ejemplo@gmail.com'
+								type='text'
+								className='border border-secondary rounded w-full px-2 py-2'
+							/>
+							{errors.email && 'El email no es valido'}
+						</div>
+						<div className='px-2 my-2'>
+							<input
+								{...register('phone', {
+									required: true,
+									pattern:
+										/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+								})}
+								placeholder='+541112223334'
+								type='text'
+								className='border border-secondary rounded w-full px-2 py-2'
+							/>
+							{errors.phone && 'El numero de telefono no es valido'}
+						</div>
 
-					<button type='submit'>Finalizar compra</button>
-				</form>
+						<button className='bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm mb-4 text-white uppercase w-full'>
+							Completar compra
+						</button>
+					</form>
+				</div>
 			)}
 		</>
 	);

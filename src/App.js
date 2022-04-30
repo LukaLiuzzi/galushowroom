@@ -6,6 +6,7 @@ import NotFoundPage from './components/NotFoundPage';
 import Cart from './components/Cart';
 import CartContextProvider from './context/CartContextProvider';
 import CheckOut from './components/CheckOut';
+import Footer from './components/Footer';
 
 function App() {
 	return (
@@ -20,6 +21,7 @@ function App() {
 					<Route path='/checkout' element={<CheckOut />} />
 					<Route path='*' element={<NotFoundPage />} />
 				</Routes>
+				<Footer />
 			</CartContextProvider>
 		</BrowserRouter>
 	);

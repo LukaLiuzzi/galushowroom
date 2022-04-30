@@ -9,7 +9,7 @@ body {
 		sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background-color: #B23A48;
+	background-color: #ffffff;
 }
 
 code {
@@ -18,5 +18,9 @@ code {
 }
 
 .active {
-	color: black;
+	color: #969191;
+}
+
+.min-height-100 {
+	min-height: calc(100vh - 137px);
 }

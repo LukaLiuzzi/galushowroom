@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContextProvider';
+import OrderSummary from './OrderSummary';
 
 export default function Cart() {
 	const {
@@ -10,128 +11,110 @@ export default function Cart() {
 		totalPerItem,
 		total,
 		clearCart,
+		totalItemsInCart,
 	} = useContext(CartContext);
 
 	return (
 		<>
 			{cart.length > 0 ? (
-				<div className='flex justify-center my-6'>
-					<div className='flex flex-col w-full p-8 text-gray-800 bg-red shadow-lg pin-r pin-y md:w-4/5 lg:w-4/5'>
-						<div className='flex-1'>
-							<table className='w-full text-sm lg:text-base' cellSpacing='0'>
-								<thead>
-									<tr className='h-12 uppercase'>
-										<th className='hidden md:table-cell'></th>
-										<th className='text-left'>Producto</th>
-										<th className='lg:text-right text-left pl-5 lg:pl-0'>
-											<span className='lg:hidden' title='Quantity'>
-												Ctd
-											</span>
-											<span className='hidden lg:inline'>Cantidad</span>
-										</th>
-										<th className='hidden text-right md:table-cell'>
-											Costo x unidad
-										</th>
-										<th className='text-right'>Costo total</th>
-									</tr>
-								</thead>
-								<tbody>
-									{cart.map((item) => (
-										<tr key={item.id}>
-											<td className='hidden pb-4 md:table-cell'>
-												<img
-													src={item.img}
-													className='w-40 rounded'
-													alt='Thumbnail'
-												/>
-											</td>
-											<td>
-												<h3 className='text-2xl mb-2 md:ml-4'>{item.name}</h3>
-												<p>{item.description}</p>
-												<form>
-													<button
-														onClick={() => removeItemToCart(item.id)}
-														type='submit'
-														className='text-white md:ml-4'
-													>
-														<small>
-															<i className='fa-solid fa-trash'></i>(quitar)
-														</small>
-													</button>
-												</form>
-											</td>
-											<td className='justify-center md:justify-end md:flex mt-6'>
-												<div className='w-20 h-10'>
-													<div className='relative flex flex-row w-full h-8'>
-														<input
-															type='number'
-															min={1}
-															max={item.stock}
-															defaultValue={item.quantity}
-															onChange={(e) =>
-																updateItemToCart(item.id, e.target.value)
-															}
-															className='w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black'
-														/>
-													</div>
-												</div>
-											</td>
-											<td className='hidden text-right md:table-cell'>
-												<span className='text-sm lg:text-base font-medium'>
-													${item.price}
-												</span>
-											</td>
-											<td className='text-right'>
-												<span className='text-sm lg:text-base font-medium'>
-													${totalPerItem(item.price, item.quantity)}
-												</span>
-											</td>
-										</tr>
-									))}
-								</tbody>
-							</table>
-							<hr className='pb-6 mt-6' />
-							<button
-								onClick={() => clearCart()}
-								className='bg-black rounded text-white px-2'
-							>
-								Vaciar carro
-							</button>
-							<div className='flex justify-between pt-4 border-b'>
-								<div className='lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800'>
-									Total
-								</div>
-								<div className='lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900'>
-									${total}
-								</div>
+				<div className='container mx-auto relative'>
+					<div className='flex flex-col items-center shadow-md'>
+						<div className='w-full px-4 bg-white'>
+							<div className='flex flex-col justify-center items-center border-b py-4'>
+								<h1 className='font-semibold text-2xl'>Carrito</h1>
+								<h2 className='font-semibold text-2xl'>
+									{totalItemsInCart} Items
+								</h2>
 							</div>
-							<Link to='/checkout'>
-								<button className='flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none'>
-									<svg
-										aria-hidden='true'
-										data-prefix='far'
-										data-icon='credit-card'
-										className='w-8'
-										xmlns='http://www.w3.org/2000/svg'
-										viewBox='0 0 576 512'
+							<div className='flex mt-10 mb-2'>
+								<h3 className='font-semibold text-gray-600 text-xs uppercase w-2/5'>
+									Detalles
+								</h3>
+								<h3 className='font-semibold text-gray-600 text-xs uppercase w-1/5 text-center'>
+									Cantidad
+								</h3>
+								<h3 className='font-semibold text-gray-600 text-xs uppercase w-1/5 text-center'>
+									Unidad
+								</h3>
+								<h3 className='font-semibold text-gray-600 text-xs uppercase w-1/5 text-center'>
+									Total
+								</h3>
+							</div>
+							{cart.map(({ id, name, price, img, quantity, stock }) => {
+								return (
+									<div
+										key={id}
+										className='flex items-center hover:bg-gray-100 py-4'
 									>
-										<path
-											fill='currentColor'
-											d='M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z'
-										/>
+										<div className='flex w-2/5'>
+											<div className='w-20'>
+												<img className='h-24' src={img} alt={name} />
+											</div>
+											<div className='flex flex-col justify-between ml-4 flex-grow'>
+												<span className='font-bold text-sm uppercase'>
+													{name}
+												</span>
+												<span
+													className='font-semibold hover:text-red-500 text-gray-500 text-xs'
+													onClick={() => removeItemToCart(id)}
+												>
+													Eliminar
+												</span>
+											</div>
+										</div>
+										<div className='flex justify-center w-1/5'>
+											<input
+												type='number'
+												min={1}
+												max={stock}
+												defaultValue={quantity}
+												onChange={(e) => updateItemToCart(id, e.target.value)}
+												className='w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black'
+											/>
+										</div>
+										<span className='text-center w-1/5 font-semibold text-sm'>
+											${price}
+										</span>
+										<span className='text-center w-1/5 font-semibold text-sm'>
+											${totalPerItem(price, quantity)}
+										</span>
+									</div>
+								);
+							})}
+
+							<button
+								type='button'
+								className='flex text-white text-sm py-1 px-2 bg-secondary rounded'
+								onClick={() => clearCart()}
+							>
+								Vaciar carrito
+							</button>
+
+							<Link to='/'>
+								<span className='flex text-white text-sm absolute bottom-2 left-2 py-1 px-4 bg-secondary rounded'>
+									<svg
+										className='fill-current mr-2 text-indigo-600 w-4'
+										viewBox='0 0 448 512'
+									>
+										<path d='M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z' />
 									</svg>
-									<span className='ml-2 mt-5px'>Prodecer al pago</span>
-								</button>
+									Continuar comprando
+								</span>
 							</Link>
 						</div>
+						<OrderSummary
+							total={total}
+							totalItemsInCart={totalItemsInCart}
+							to='checkout'
+						/>
 					</div>
 				</div>
 			) : (
-				<div className='flex justify-center items-center flex-col'>
-					<h3 className='text-4xl font-bold text-orange-300'>
+				<div className='flex items-center flex-col min-height-100 px-2'>
+					<h3 className='text-4xl font-bold text-secondary'>
 						No hay items en el carrito
 					</h3>
-					<p className='my-4 font-bold text-2xl text-orange-300'>
+					<p className='my-4 font-bold text-2xl text-secondary'>
 						Que estas esperando para comprar?
 					</p>
 					<Link to='/'>

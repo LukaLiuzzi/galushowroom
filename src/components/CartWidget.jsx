@@ -8,7 +8,7 @@ const CartWidget = () => {
 	return (
 		<>
 			<Link to='/cart'>
-				<i className='fa-solid fa-cart-shopping text-white text-2xl'>
+				<i className='fa-solid fa-cart-shopping text-secondary text-2xl'>
 					<span className='text-base'>
 						{totalItemsInCart > 0 ? totalItemsInCart : null}
 					</span>
@@ -17,5 +17,4 @@ const CartWidget = () => {
 		</>
 	);
 };
-
 export default CartWidget;

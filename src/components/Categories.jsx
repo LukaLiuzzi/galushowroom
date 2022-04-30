@@ -1,15 +1,13 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default function Categories({ category }) {
 	return (
 		<>
-			<ul>
-				{category.map((el) => (
-					<Link to={'/category/' + el} key={el}>
-						<li>{el}</li>
-					</Link>
-				))}
-			</ul>
+			{category.map((el) => (
+				<NavLink to={'/category/' + el} key={el}>
+					<li>{el}</li>
+				</NavLink>
+			))}
 		</>
 	);
 }

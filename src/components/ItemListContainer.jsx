@@ -8,6 +8,7 @@ import {
 	query,
 	where,
 } from 'firebase/firestore';
+import Loading from './Loading';
 
 const ItemListContainer = () => {
 	const [products, setProducts] = useState([]);
@@ -35,11 +36,7 @@ const ItemListContainer = () => {
 	}, [category]);
 
 	if (isLoading) {
-		return (
-			<h1 className='text-white text-center font-bold fs-1 mt-5'>
-				Cargando...
-			</h1>
-		);
+		return <Loading />;
 	}
 
 	return (
