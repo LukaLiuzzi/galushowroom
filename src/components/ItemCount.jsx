@@ -1,15 +1,11 @@
-import React, { useContext } from 'react';
-import { CartContext } from '../context/CartContextProvider';
-
 const ItemCount = ({
 	quantity,
 	handleAddQuantity,
 	handleRemoveQuantity,
 	onAdd,
 	product,
+	addItemToCart,
 }) => {
-	const { addItemToCart } = useContext(CartContext);
-
 	return (
 		<>
 			<div className='grid place-content-center mt-4'>

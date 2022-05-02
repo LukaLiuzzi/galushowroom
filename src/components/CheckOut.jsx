@@ -66,7 +66,7 @@ export default function CheckOut() {
 							title='Copiar al portapapeles'
 							className='text-primary bg-secondary px-2 py-1 rounded normal-case hover:bg-gray-700'
 						>
-							{orderId} <i class='ml-2 fa-solid fa-clipboard'></i>
+							{orderId} <i className='ml-2 fa-solid fa-clipboard'></i>
 						</button>
 					</h1>
 

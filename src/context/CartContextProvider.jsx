@@ -22,6 +22,15 @@ export default function CartContextProvider({ children }) {
 		}
 	};
 
+	const idCount = (id) => {
+		const foundIndex = cart.findIndex((cartItem) => cartItem.id === id);
+		if (foundIndex === -1) {
+			return 0;
+		} else {
+			return cart[foundIndex].quantity;
+		}
+	};
+
 	const removeItemToCart = (id) => {
 		const newCart = [...cart];
 		const foundIndex = cart.findIndex((cartItem) => cartItem.id === id);
@@ -62,6 +71,7 @@ export default function CartContextProvider({ children }) {
 					totalPerItem,
 					total,
 					totalItemsInCart,
+					idCount,
 				}}
 			>
 				{children}
