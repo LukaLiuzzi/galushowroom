@@ -8,6 +8,9 @@ import {
 	serverTimestamp,
 } from 'firebase/firestore';
 import OrderSummary from './OrderSummary';
+import Loading from './Loading';
+import { Link } from 'react-router-dom';
+import { GoToCatalogue } from './Buttons';
 
 export default function CheckOut() {
 	const { cart, total, totalItemsInCart, clearCart } = useContext(CartContext);
@@ -49,11 +52,7 @@ export default function CheckOut() {
 	}
 
 	if (isLoading) {
-		return (
-			<div className='container'>
-				<h1>Loading...</h1>
-			</div>
-		);
+		return <Loading />;
 	}
 
 	return (
@@ -62,8 +61,18 @@ export default function CheckOut() {
 				<div className='min-height-100'>
 					<h1 className='uppercase px-2 font-bold text-center'>
 						Gracias por su compra, el id de su orden es:{' '}
-						<span className='text-red-400 normal-case'>{orderId}</span>
+						<button
+							onClick={() => navigator.clipboard.writeText(orderId)}
+							title='Copiar al portapapeles'
+							className='text-primary bg-secondary px-2 py-1 rounded normal-case hover:bg-gray-700'
+						>
+							{orderId} <i class='ml-2 fa-solid fa-clipboard'></i>
+						</button>
 					</h1>
+
+					<Link to='/' className='block text-center mt-6'>
+						<GoToCatalogue text='Seguir comprando' />
+					</Link>
 				</div>
 			) : (
 				<div className='min-height-100 container mx-auto'>

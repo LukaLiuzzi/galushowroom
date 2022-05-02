@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContextProvider';
+import { GoToCatalogue } from './Buttons';
 import OrderSummary from './OrderSummary';
 
 export default function Cart() {
@@ -118,9 +119,7 @@ export default function Cart() {
 						Que estas esperando para comprar?
 					</p>
 					<Link to='/'>
-						<button className='bg-orange-400 rounded text-black px-2 font-bold text-xl uppercase'>
-							Ir al catalogo
-						</button>
+						<GoToCatalogue text='Ir al catalogo' />
 					</Link>
 				</div>
 			)}

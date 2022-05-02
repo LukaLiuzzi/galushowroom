@@ -29,3 +29,11 @@ export function GoToCheckOut() {
 		</button>
 	);
 }
+
+export function GoToCatalogue({ text }) {
+	return (
+		<button className='bg-orange-400 rounded text-black px-2 font-bold text-xl uppercase'>
+			{text}
+		</button>
+	);
+}
