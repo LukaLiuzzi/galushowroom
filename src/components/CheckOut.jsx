@@ -65,14 +65,14 @@ export default function CheckOut() {
 								setOrderId(id);
 								clearCart();
 							})
-							.catch((err) => console.log('Error: ' + err))
+							.catch((err) => console.error('Error: ' + err))
 							.finally(() => {
 								setIsLoading(false);
 							});
 					}
 				})
 				.catch((err) => {
-					console.log('Error: ' + err);
+					console.error('Error: ' + err);
 				});
 		});
 	}
