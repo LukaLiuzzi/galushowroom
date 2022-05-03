@@ -6,6 +6,9 @@ import {
 	addDoc,
 	getFirestore,
 	serverTimestamp,
+	writeBatch,
+	getDoc,
+	doc,
 } from 'firebase/firestore';
 import OrderSummary from './OrderSummary';
 import Loading from './Loading';
@@ -24,7 +27,7 @@ export default function CheckOut() {
 		handleSubmit,
 	} = useForm();
 
-	function sendOrder(data) {
+	async function sendOrder(data) {
 		const order = {
 			buyer: data,
 			items: cart,
@@ -33,22 +36,45 @@ export default function CheckOut() {
 		};
 
 		const db = getFirestore();
-
-		const orders = collection(db, 'orders');
-
+		const ordersRef = collection(db, 'orders');
+		const batch = writeBatch(db);
 		setIsLoading(true);
 
-		addDoc(orders, order)
-			.then(({ id }) => {
-				setOrderId(id);
-				clearCart();
-			})
-			.catch((err) => {
-				console.log(err);
-			})
-			.finally(() => {
-				setIsLoading(false);
-			});
+		order.items.forEach((item, index) => {
+			let productDoc = doc(db, 'products', String(item.id));
+			let prevStock = 0;
+
+			getDoc(productDoc)
+				.then((res) => {
+					if (res.exists()) {
+						if (res.data().stock) {
+							prevStock = res.data().stock;
+						}
+					}
+
+					let newStock = Number(prevStock) - Number(item.quantity);
+
+					batch.update(productDoc, { stock: newStock });
+				})
+				.then(() => {
+					if (order.items[index] === order.items[order.items.length - 1]) {
+						batch.commit();
+
+						addDoc(ordersRef, order)
+							.then(({ id }) => {
+								setOrderId(id);
+								clearCart();
+							})
+							.catch((err) => console.log('Error: ' + err))
+							.finally(() => {
+								setIsLoading(false);
+							});
+					}
+				})
+				.catch((err) => {
+					console.log('Error: ' + err);
+				});
+		});
 	}
 
 	if (isLoading) {

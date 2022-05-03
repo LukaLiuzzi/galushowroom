@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import ItemCount from './ItemCount';
 import { CartContext } from '../context/CartContextProvider';
+import { GoToCatalogue } from './Buttons';
 
 export default function ItemDetail({ product }) {
 	const { name, price, img, stock, id } = product;
@@ -9,11 +10,6 @@ export default function ItemDetail({ product }) {
 	const { idCount, addItemToCart } = useContext(CartContext);
 
 	const [quantity, setQuantity] = useState(1);
-	const [totalItems, setTotalItems] = useState(0);
-
-	function onAdd(quantity) {
-		setTotalItems(quantity);
-	}
 
 	function handleAddQuantity() {
 		if (quantity + idCount(id) < stock) {
@@ -29,6 +25,18 @@ export default function ItemDetail({ product }) {
 		if (quantity > 1) {
 			setQuantity(quantity - 1);
 		}
+	}
+
+	if (stock === 0) {
+		return (
+			<div className='flex items-center uppercase font-bold flex-col min-height-100'>
+				<h1>{name}</h1>
+				<p className='mb-4'>Este producto no tiene stock</p>
+				<Link to='/'>
+					<GoToCatalogue text='Volver al catalogo' />
+				</Link>
+			</div>
+		);
 	}
 
 	return (
@@ -159,7 +167,6 @@ export default function ItemDetail({ product }) {
 								quantity={quantity}
 								handleAddQuantity={handleAddQuantity}
 								handleRemoveQuantity={handleRemoveQuantity}
-								onAdd={onAdd}
 								product={product}
 								addItemToCart={addItemToCart}
 							/>

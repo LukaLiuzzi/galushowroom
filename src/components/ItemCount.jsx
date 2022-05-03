@@ -2,7 +2,6 @@ const ItemCount = ({
 	quantity,
 	handleAddQuantity,
 	handleRemoveQuantity,
-	onAdd,
 	product,
 	addItemToCart,
 }) => {
@@ -27,7 +26,6 @@ const ItemCount = ({
 			</div>
 			<button
 				onClick={() => {
-					onAdd(quantity);
 					addItemToCart({ ...product, quantity });
 				}}
 				className='bg-secondary text-primary font-bold py-2 px-4 rounded block mx-auto mt-4'
