@@ -1,6 +1,6 @@
 # Rock And Dolls - React Ecommerce
 
-Project made for Coder House react js course.
+Proyecto hecho para el curso de react js en Coder House.
 
 ## Demo
 
