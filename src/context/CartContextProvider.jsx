@@ -1,4 +1,6 @@
 import { useEffect, createContext, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const CartContext = createContext();
 
@@ -20,6 +22,17 @@ export default function CartContextProvider({ children }) {
 			newCart[foundIndex].quantity += item.quantity;
 			setCart(newCart);
 		}
+
+		toast.success('😁 Producto agregado correctamente!', {
+			position: 'bottom-right',
+			autoClose: 3000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: 'dark',
+		});
 	};
 
 	const idCount = (id) => {
@@ -75,6 +88,7 @@ export default function CartContextProvider({ children }) {
 				}}
 			>
 				{children}
+				<ToastContainer />
 			</CartContext.Provider>
 		</>
 	);

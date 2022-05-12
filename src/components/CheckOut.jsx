@@ -28,53 +28,57 @@ export default function CheckOut() {
 	} = useForm();
 
 	async function sendOrder(data) {
-		const order = {
-			buyer: data,
-			items: cart,
-			date: serverTimestamp(),
-			total,
-		};
+		if (cart.length > 0) {
+			const order = {
+				buyer: data,
+				items: cart,
+				date: serverTimestamp(),
+				total,
+			};
 
-		const db = getFirestore();
-		const ordersRef = collection(db, 'orders');
-		const batch = writeBatch(db);
-		setIsLoading(true);
+			const db = getFirestore();
+			const ordersRef = collection(db, 'orders');
+			const batch = writeBatch(db);
+			setIsLoading(true);
 
-		order.items.forEach((item, index) => {
-			let productDoc = doc(db, 'products', String(item.id));
-			let prevStock = 0;
+			order.items.forEach((item, index) => {
+				let productDoc = doc(db, 'products', String(item.id));
+				let prevStock = 0;
 
-			getDoc(productDoc)
-				.then((res) => {
-					if (res.exists()) {
-						if (res.data().stock) {
-							prevStock = res.data().stock;
+				getDoc(productDoc)
+					.then((res) => {
+						if (res.exists()) {
+							if (res.data().stock) {
+								prevStock = res.data().stock;
+							}
 						}
-					}
 
-					let newStock = Number(prevStock) - Number(item.quantity);
+						let newStock = Number(prevStock) - Number(item.quantity);
 
-					batch.update(productDoc, { stock: newStock });
-				})
-				.then(() => {
-					if (order.items[index] === order.items[order.items.length - 1]) {
-						batch.commit();
+						batch.update(productDoc, { stock: newStock });
+					})
+					.then(() => {
+						if (order.items[index] === order.items[order.items.length - 1]) {
+							batch.commit();
 
-						addDoc(ordersRef, order)
-							.then(({ id }) => {
-								setOrderId(id);
-								clearCart();
-							})
-							.catch((err) => console.error('Error: ' + err))
-							.finally(() => {
-								setIsLoading(false);
-							});
-					}
-				})
-				.catch((err) => {
-					console.error('Error: ' + err);
-				});
-		});
+							addDoc(ordersRef, order)
+								.then(({ id }) => {
+									setOrderId(id);
+									clearCart();
+								})
+								.catch((err) => console.error('Error: ' + err))
+								.finally(() => {
+									setIsLoading(false);
+								});
+						}
+					})
+					.catch((err) => {
+						console.error('Error: ' + err);
+					});
+			});
+		} else {
+			alert('No hay productos en el carrito');
+		}
 	}
 
 	if (isLoading) {
